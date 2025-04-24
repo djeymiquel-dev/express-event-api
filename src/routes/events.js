@@ -7,7 +7,7 @@ import authMiddleware from "../middleware/auth.js";
 // create a new router instance
 const router = express.Router();
 
-router.get("/", authMiddleware, (req, res) => {
+router.get("/", (req, res) => {
   try {
     const events = getEvents();
     res.status(200).json(events);
