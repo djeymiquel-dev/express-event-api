@@ -6,8 +6,6 @@ const getUserById = (id) => {
   if (!user) {
     throw new Error(`User with id ${id} not found`);
   }
-
   return user;
 };
-
 export default getUserById;

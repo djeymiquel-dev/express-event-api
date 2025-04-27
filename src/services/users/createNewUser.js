@@ -4,12 +4,12 @@ import { v4 as uuid } from "uuid";
 
 const createNewUser = (username, password, name, image) => {
   // Check if the user already exists
-  const existingUser = userData.users.find((user) => user.name === name);
+  const existingUserId = userData.users.find((user) => user.name === name);
   const existingUserName = userData.users.find(
     (user) => user.username === username
   );
 
-  if (existingUser || existingUserName) {
+  if (existingUserId || existingUserName) {
     throw new Error(`User with name ${name} already exists`);
   } else if (!username || !password || !name) {
     throw new Error("Username, password, and name are required");

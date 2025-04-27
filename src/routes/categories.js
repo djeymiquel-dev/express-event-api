@@ -42,22 +42,22 @@ router.post(
   notFoundErrorHandler
 );
 
-router.put("/:id", (req, res) => {
-  const { id } = req.params;
-  const { name } = req.body;
-  const updatedCategory = updateCategoryById(id, { name });
+router.put(
+  "/:id",
+  (req, res) => {
+    const { id } = req.params;
+    const { name } = req.body;
+    const updatedCategory = updateCategoryById(id, { name });
 
-  if (updatedCategory) {
-    res.status(200).send({
-      message: `Category with id ${id} successfully updated`,
-      updatedCategory,
-    });
-  } else {
-    res.status(404).json({
-      message: `Category with id ${id} not found`,
-    });
-  }
-});
+    if (updatedCategory) {
+      res.status(200).send({
+        message: `Category with id ${id} successfully updated`,
+        updatedCategory,
+      });
+    }
+  },
+  notFoundErrorHandler
+);
 
 router.delete(
   "/:id",

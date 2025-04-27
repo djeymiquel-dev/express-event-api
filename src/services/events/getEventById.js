@@ -6,8 +6,6 @@ const getEventById = (id) => {
   if (!event) {
     throw new NotFoundError("Event", id);
   }
-
   return event;
 };
-
 export default getEventById;

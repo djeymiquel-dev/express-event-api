@@ -22,10 +22,12 @@ router.get(
   (req, res) => {
     const event = getEventById(req.params.id);
     res.status(200).json(event);
-
-    res.status(404).json({ message: error.message });
   },
   notFoundErrorHandler
 );
+
+// router.update("/:id", (req, res) => {
+//   const event =
+// })
 
 export default router;
