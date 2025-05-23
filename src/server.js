@@ -1,3 +1,4 @@
+import "dotenv/config";
 import express from "express";
 import * as Sentry from "@sentry/node";
 import log from "./middleware/logMiddleware.js";
@@ -8,13 +9,18 @@ import eventsRouter from "./routes/events.js";
 import loginRouter from "./routes/login.js";
 import categoryRouter from "./routes/categories.js";
 import userRouter from "./routes/users.js";
-import "dotenv/config";
 
 const app = express();
-const PORT = 3000;
+
+if (!process.env.PORT) {
+  throw new Error("PORT is not defined in .env");
+}
+
+const PORT = process.env.PORT;
+const SENTRY = process.env.SENTRY;
 
 Sentry.init({
-  dsn: "https://60cddb702f1996d26929d6c00723ba7e@o4509151195758592.ingest.de.sentry.io/4509159305576528",
+  dsn: SENTRY,
   integrations: [
     // enable HTTP calls tracing
     new Sentry.Integrations.Http({ tracing: true }),

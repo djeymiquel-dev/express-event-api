@@ -1,8 +1,8 @@
 import categoriesData from "../../data/categories.json" assert { type: "json" };
 import NotFoundError from "../../errors/NotFoundError.js";
 
-const updateCategoryById = (id, updatedCategory) => {
-  const categoryIndex = categoriesData.categories.findIndex(
+const updateCategoryById = (id, name) => {
+  /*   const categoryIndex = categoriesData.categories.findIndex(
     (category) => category.id === id
   );
 
@@ -17,7 +17,15 @@ const updateCategoryById = (id, updatedCategory) => {
     name: name || categoriesData.categories[categoryIndex].name,
   };
 
-  return categoriesData.categories[categoryIndex];
+  return categoriesData.categories[categoryIndex] */
+  const category = categoriesData.categories.find((cat) => cat.id === id);
+
+  if (!category) {
+    throw new NotFoundError("Category", id);
+  }
+
+  category.name = name ?? category.name;
+  return category;
 };
 
 export default updateCategoryById;

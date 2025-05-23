@@ -10,22 +10,20 @@ import authMiddleware from "../middleware/auth.js";
 import UnauthorizedErrorHandler from "../middleware/unauthorizedErrorHandler.js";
 const router = express.Router();
 
-router.get("/", (req, res) => {
-  try {
+router.get(
+  "/",
+  (req, res) => {
     const categories = getCategories();
     res.status(200).json(categories);
-  } catch (error) {
-    console.error("Error fetching categories:", error);
-    res.status(500).json({ message: "Internal server error" });
-  }
-});
+  },
+  notFoundErrorHandler
+);
 
 router.get(
   "/:id",
   (req, res) => {
     const { id } = req.params;
     const category = getCategoryById(id);
-
     res.status(200).json(category);
   },
   notFoundErrorHandler
@@ -33,38 +31,38 @@ router.get(
 
 router.post(
   "/",
+  authMiddleware,
   (req, res) => {
     const { name } = req.body;
     const category = createCategory(name);
-
     res.status(201).json(category);
   },
   notFoundErrorHandler
 );
 
+// Update Category
 router.put(
   "/:id",
+  authMiddleware,
   (req, res) => {
     const { id } = req.params;
     const { name } = req.body;
     const updatedCategory = updateCategoryById(id, { name });
-
     if (updatedCategory) {
-      res.status(200).send({
+      res.status(200).json({
         message: `Category with id ${id} successfully updated`,
-        updatedCategory,
       });
     }
   },
   notFoundErrorHandler
 );
 
+// Delete Category
 router.delete(
   "/:id",
   (req, res) => {
     const { id } = req.params;
     const deletedCategoryId = deleteCategory(id);
-
     res.status(200).json({
       message: `Category with id ${deletedCategoryId} was deleted!`,
     });

@@ -1,7 +1,6 @@
 import express from "express";
 import userData from "../data/users.json" assert { type: "json" };
 import jwt from "jsonwebtoken";
-import authMiddleware from "../middleware/auth.js";
 import UnauthorizedError from "../errors/UnauthorizedError.js";
 
 const router = express.Router();
